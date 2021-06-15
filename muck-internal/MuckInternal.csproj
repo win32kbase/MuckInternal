@@ -258,7 +258,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CacheObject.cs" />
+    <Compile Include="ObjectCache.cs" />
     <Compile Include="Cheat.cs" />
     <Compile Include="CheatSettings.cs" />
     <Compile Include="Main.cs" />
