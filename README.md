@@ -1,7 +1,12 @@
 # MuckInternal
 Internal cheat for Muck
 
-# Injection tutorial:
+# Features
+God mode, infinite stamina, infinite food, spawn any item, spawn any powerup
+
+Instant destroy all trees, all rocks, all resources, all chests, kill all mobs, instant activate all shrines
+
+# Injection tutorial
 
 Clone repo and open .sln file in Visual Studio
 
@@ -16,3 +21,6 @@ Select game and DLL file
 Namespace is MuckInternal, class name is Loader, method name is Init
 
 Press inject
+
+# Image of menu
+
