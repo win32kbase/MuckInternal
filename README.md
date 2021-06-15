@@ -23,4 +23,7 @@ Namespace is MuckInternal, class name is Loader, method name is Init
 
 Press inject
 
-
+# Credits
+Zat - https://www.unknowncheats.me/forum/unity/285864-beginners-guide-hacking-unity-games.html
+Aragon12 - https://www.unknowncheats.me/forum/unity/437277-mono-internal-optimisation-tips.html
+@yapht - Answering some of my C# questions
