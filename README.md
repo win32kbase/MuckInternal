@@ -1,4 +1,5 @@
 # MuckInternal
+<img src="https://i.imgur.com/FekWj01.png"/>
 Internal cheat for Muck
 
 # Features
@@ -22,5 +23,4 @@ Namespace is MuckInternal, class name is Loader, method name is Init
 
 Press inject
 
-# Image of menu
 
