@@ -10,9 +10,9 @@ namespace MuckInternal
     public class Cheat : MonoBehaviour
     {
         private ObjectCache<PlayerStatus> Statuses = new ObjectCache<PlayerStatus>();
-        private ObjectCache<Camera> Camera = new ObjectCache<Camera>(5.0f, true);
-        private ObjectCache<PowerupInventory> PowerupInventory = new ObjectCache<PowerupInventory>(5.0f, true);
-        private ObjectCache<ItemManager> ItemManager = new ObjectCache<ItemManager>(5.0f, true);
+        private ObjectCache<Camera> Camera = new ObjectCache<Camera>(single: true);
+        private ObjectCache<PowerupInventory> PowerupInventory = new ObjectCache<PowerupInventory>(single: true);
+        private ObjectCache<ItemManager> ItemManager = new ObjectCache<ItemManager>(single: true);
 
         public void Start()
         {
