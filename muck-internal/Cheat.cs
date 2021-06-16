@@ -11,15 +11,11 @@ namespace MuckInternal
     {
         private ObjectCache<PlayerStatus> Statuses = new ObjectCache<PlayerStatus>();
         private ObjectCache<Camera> Camera = new ObjectCache<Camera>(single: true);
-        private ObjectCache<PowerupInventory> PowerupInventory = new ObjectCache<PowerupInventory>(single: true);
-        private ObjectCache<ItemManager> ItemManager = new ObjectCache<ItemManager>(single: true);
 
         public void Start()
         {
             Statuses.Init(this);
             Camera.Init(this);
-            PowerupInventory.Init(this);
-            ItemManager.Init(this);
         }
 
         public void Update()
@@ -63,6 +59,9 @@ namespace MuckInternal
         }
         public void RenderWindow(int windowID)
         {
+            ItemManager ItemManager = ItemManager.Instance;
+            PowerupInventory PowerupInventory = PowerupInventory.Instance;
+
             GUI.DragWindow(new Rect(0, 0, 0x1000, 30));
 
             CheatSettings.GodMode = GUI.Toggle(CheatSettings.GodModePosition, CheatSettings.GodMode, " God mode");
@@ -75,12 +74,12 @@ namespace MuckInternal
             int x = 0;
             int y = 0;
 
-            for (int i = 0; i < ItemManager.Object.allItems.Count; i++)
+            for (int i = 0; i < ItemManager.allScriptableItems.Count(); i++)
             {
-                InventoryItem item = ItemManager.Object.allItems[i];
+                InventoryItem item = ItemManager.allScriptableItems[i];
 
                 if (GUI.Button(new Rect(x, y, 50, 50), new GUIContent(item.sprite.texture, "Spawn " + item.name)))
-                    ItemManager.Object.DropItemAtPosition(item.id, CheatSettings.ItemSpawnerAmount, Camera.Object.transform.position, ItemManager.Object.GetNextId());
+                    ItemManager.DropItemAtPosition(item.id, CheatSettings.ItemSpawnerAmount, Camera.Object.transform.position, ItemManager.GetNextId());
 
                 if (i != 0 && i % 7 == 0)
                 { 
@@ -90,17 +89,17 @@ namespace MuckInternal
                     x += 60;
             }
 
-            for (int i = 0; i < ItemManager.Object.allPowerups.Count; i++)
+            for (int i = 0; i < ItemManager.allPowerups.Count(); i++)
             {
-                Powerup powerup = ItemManager.Object.allPowerups[i];
+                Powerup powerup = ItemManager.allPowerups[i];
 
                 if (GUI.Button(new Rect(x, y, 50, 50), new GUIContent(powerup.sprite.texture, "Spawn " + powerup.name)))
                     for (int j = 0; j < CheatSettings.ItemSpawnerAmount; j++)
-                        PowerupInventory.Object.AddPowerup(powerup.name, powerup.id, ItemManager.Object.GetNextId());
+                        PowerupInventory.AddPowerup(powerup.name, powerup.id, ItemManager.GetNextId());
 
                 if (i != 0 && i % 7 == 0)
                 {
-                    x = 0; y += 60; 
+                    x = 0; y += 60;
                 }
                 else
                     x += 60;
@@ -135,7 +134,11 @@ namespace MuckInternal
                     Shrine.Interact();
 
             if (GUI.Button(CheatSettings.UnloadCheatPosition, "Unload cheat"))
+            {
+                Cursor.visible = CheatSettings.OldCursorVisible;
+                Cursor.lockState = CheatSettings.OldCursorLockMode;
                 GameObject.Destroy(Loader.MainGameObject);
+            }
         }
     }
 }
