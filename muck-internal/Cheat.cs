@@ -11,11 +11,13 @@ namespace MuckInternal
     {
         private ObjectCache<PlayerStatus> Statuses = new ObjectCache<PlayerStatus>();
         private ObjectCache<Camera> Camera = new ObjectCache<Camera>(single: true);
+        private ObjectCache<PlayerMovement> PlayerMovement = new ObjectCache<PlayerMovement>(single: true);
 
         public void Start()
         {
             Statuses.Init(this);
             Camera.Init(this);
+            PlayerMovement.Init(this);
         }
 
         public void Update()
@@ -29,6 +31,7 @@ namespace MuckInternal
                 if (CheatSettings.InfiniteFood)
                     Status.hunger = Status.maxHunger;
             }
+            
 
             if (Input.GetKeyUp(KeyCode.Insert))
             {
@@ -79,7 +82,7 @@ namespace MuckInternal
                 InventoryItem item = ItemManager.allScriptableItems[i];
 
                 if (GUI.Button(new Rect(x, y, 50, 50), new GUIContent(item.sprite.texture, "Spawn " + item.name)))
-                    ItemManager.DropItemAtPosition(item.id, CheatSettings.ItemSpawnerAmount, Camera.Object.transform.position, ItemManager.GetNextId());
+                    ClientSend.DropItem(item.id, CheatSettings.ItemSpawnerAmount);
 
                 if (i != 0 && i % 7 == 0)
                 { 
@@ -132,6 +135,10 @@ namespace MuckInternal
             if (GUI.Button(CheatSettings.UseAllShrinesPosition, "Use all shrines"))
                 foreach (ShrineInteractable Shrine in GameObject.FindObjectsOfType<ShrineInteractable>())
                     Shrine.Interact();
+            if (GUI.Button(CheatSettings.UseAllChestsPosition, "Use all chests"))
+                foreach (LootContainerInteract Container in GameObject.FindObjectsOfType<LootContainerInteract>())
+                ClientSend.PickupInteract(Container.GetId());
+
 
             if (GUI.Button(CheatSettings.UnloadCheatPosition, "Unload cheat"))
             {

@@ -38,6 +38,7 @@ namespace MuckInternal
         public static readonly Rect BreakEverythingPosition = new Rect(10, 85 + 120, 130, 25);
         public static readonly Rect KillAllMobsPosition = new Rect(10, 85 + 150, 130, 25);
         public static readonly Rect UseAllShrinesPosition = new Rect(10, 85 + 180, 130, 25);
+        public static readonly Rect UseAllChestsPosition = new Rect(10, 85 + 210, 130, 25);
 
         public static readonly Rect UnloadCheatPosition = new Rect(10, 365, 130, 25);
     }
