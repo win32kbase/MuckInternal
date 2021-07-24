@@ -31,7 +31,7 @@ namespace MuckInternal
                 if (CheatSettings.InfiniteFood)
                     Status.hunger = Status.maxHunger;
             }
-            
+
 
             if (Input.GetKeyUp(KeyCode.Insert))
             {
@@ -84,13 +84,16 @@ namespace MuckInternal
                 if (GUI.Button(new Rect(x, y, 50, 50), new GUIContent(item.sprite.texture, "Spawn " + item.name)))
                     ClientSend.DropItem(item.id, CheatSettings.ItemSpawnerAmount);
 
-                if (i != 0 && i % 7 == 0)
-                { 
-                    x = 0; y += 60; 
+                if (x == 360)   //Old method puts the 7th item offscreen. i % 7 for the 7th item would be 6 % 7 because i starts at 0.
+                {
+                    x = 0; y += 60;
                 }
                 else
                     x += 60;
             }
+
+            x = 0;  // Starts power ups at new line 
+            y += 60;
 
             for (int i = 0; i < ItemManager.allPowerups.Count(); i++)
             {
@@ -100,7 +103,7 @@ namespace MuckInternal
                     for (int j = 0; j < CheatSettings.ItemSpawnerAmount; j++)
                         PowerupInventory.AddPowerup(powerup.name, powerup.id, ItemManager.GetNextId());
 
-                if (i != 0 && i % 7 == 0)
+                if (x == 360)   //see above.
                 {
                     x = 0; y += 60;
                 }
@@ -116,16 +119,16 @@ namespace MuckInternal
 
             if (GUI.Button(CheatSettings.BreakAllTreesPosition, "Break all trees"))
                 foreach (HitableTree Tree in GameObject.FindObjectsOfType<HitableTree>())
-                    Tree.Hit(9999, 9999, 1, Vector3.zero);
+                    Tree.Hit(9999, 9999, 1, Vector3.zero, 1);
             if (GUI.Button(CheatSettings.BreakAllRocksPosition, "Break all rocks"))
                 foreach (HitableRock Rock in GameObject.FindObjectsOfType<HitableRock>())
-                    Rock.Hit(9999, 9999, 1, Vector3.zero);
+                    Rock.Hit(9999, 9999, 1, Vector3.zero, 1);
             if (GUI.Button(CheatSettings.BreakAllResourcesPosition, "Break all resources"))
                 foreach (HitableResource Resource in GameObject.FindObjectsOfType<HitableResource>())
-                    Resource.Hit(9999, 9999, 1, Vector3.zero);
+                    Resource.Hit(9999, 9999, 1, Vector3.zero, 1);
             if (GUI.Button(CheatSettings.BreakAllUserChestsPosition, "Break user chests"))
                 foreach (HitableChest Chest in GameObject.FindObjectsOfType<HitableChest>())
-                    Chest.Hit(9999, 9999, 1, Vector3.zero);
+                    Chest.Hit(9999, 9999, 1, Vector3.zero, 1);
             if (GUI.Button(CheatSettings.BreakEverythingPosition, "Break/kill everything"))
                 foreach (Hitable Entity in GameObject.FindObjectsOfType<Hitable>())
                     Entity.Hit(9999, 9999, 1, Vector3.zero);
@@ -137,7 +140,7 @@ namespace MuckInternal
                     Shrine.Interact();
             if (GUI.Button(CheatSettings.UseAllChestsPosition, "Use all chests"))
                 foreach (LootContainerInteract Container in GameObject.FindObjectsOfType<LootContainerInteract>())
-                ClientSend.PickupInteract(Container.GetId());
+                    ClientSend.PickupInteract(Container.GetId());
 
 
             if (GUI.Button(CheatSettings.UnloadCheatPosition, "Unload cheat"))
