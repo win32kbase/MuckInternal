@@ -58,7 +58,7 @@ namespace MuckInternal
             if (!CheatSettings.MenuToggle)
                 return;
 
-            CheatSettings.WindowRect = GUI.Window(0, CheatSettings.WindowRect, RenderWindow, "Muck cheat [@IAmWolfie | github.com/win32kbase]");
+            CheatSettings.WindowRect = GUI.Window(0, CheatSettings.WindowRect, RenderWindow, "Muck Internal: [@IAmWolfie | github.com/win32kbase]");
         }
         public void RenderWindow(int windowID)
         {
